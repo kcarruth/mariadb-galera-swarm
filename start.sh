@@ -425,6 +425,8 @@ gosu mysql mysqld.sh --console \
 	--wsrep_cluster_name=$CLUSTER_NAME \
 	--wsrep_cluster_address=gcomm://$GCOMM \
 	--wsrep_node_address=$NODE_ADDRESS:4567 \
+	--wsrep_node_incoming_address=$NODE_ADDRESS \
+	--wsrep_notify_cmd=/usr/local/bin/notify.sh \
 	--default-time-zone=$DEFAULT_TIME_ZONE \
 	"$@" 2>&1 &
 
