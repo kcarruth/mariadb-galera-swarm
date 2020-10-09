@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  galera:
+    image: galera10:01
+    environment:
+      - XTRABACKUP_PASSWORD_FILE=/run/secrets/xtrabackup_password
+      - NODE_ADDRESS=^10.0.*.*
+      - HEALTHY_WHILE_BOOTING=1
+      - DEFAULT_TIME_ZONE=America/New_York
+    networks:
+      - net_galera
+    command: node tasks.galera
+    volumes:
+      - /lv1/galera/data/swarm/{{.Service.Name}}.{{.Task.Slot}}:/var/lib/mysql
+    deploy:
+      replicas: 0
+    secrets:
+      - xtrabackup_password
+    stop_grace_period: 30s
+
+networks:
+  net_galera:
+    external: 
+      name: net_galera
+
+secrets:
+  xtrabackup_password:
+    file: .secrets/xtrabackup_password
+  mysql_password:
+    file: .secrets/mysql_password
+  mysql_root_password:
+    file: .secrets/mysql_root_password
