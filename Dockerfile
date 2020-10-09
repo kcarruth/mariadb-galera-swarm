@@ -14,6 +14,8 @@ RUN set -x \
     && chmod +x /usr/local/bin/qpress \
     && rm -rf /tmp/* /var/cache/apk/* /var/lib/apt/lists/*
 
+RUN ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+
 COPY conf.d/*                /etc/mysql/conf.d/
 COPY *.sh                    /usr/local/bin/
 COPY bin/galera-healthcheck  /usr/local/bin/galera-healthcheck
