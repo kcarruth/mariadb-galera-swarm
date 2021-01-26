@@ -19,6 +19,8 @@ services:
     secrets:
       - xtrabackup_password
     stop_grace_period: 30s
+    ports:
+      - 3306:3306
 
 networks:
   net_galera:
